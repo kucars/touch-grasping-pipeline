@@ -7,6 +7,6 @@
   
   <include file="$(find mitsubishi_arm_description)/launch/display.launch"/>
   <include file="$(find openni_launch)/launch/openni.launch"/>
-  <node name="plane_segmentation" pkg="segmentation" type="plane_segmentation">
-  </node>
+  <!-- node name="plane_segmentation" pkg="segmentation" type="plane_segmentation">
+  </node -->
 </launch>

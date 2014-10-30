@@ -32,6 +32,7 @@
 #include <pcl/sample_consensus/method_types.h>
 #include <pcl/sample_consensus/model_types.h>
 #include <pcl/segmentation/sac_segmentation.h>
+#include <pcl/filters/statistical_outlier_removal.h>
 
 #include <segmentation/Table.h>
 #include <visualization_msgs/Marker.h>
@@ -170,6 +171,10 @@ int main (int argc, char** argv)
         ROS_ERROR("Failure while converting the ROS Message to PCL point cloud.  Tabletop segmentation now requires the input cloud to have color info, so you must input a cloud with XYZRGB points, not just XYZ.");
         throw;
     }
+      // save the cloud to PCD file //****************************************
+   pcl::PCDWriter writer;
+   writer.write<pcl::PointXYZRGB> ("input_cloud.pcd", *cloud_ptr, false);
+    //***********************************************************************************************
     
     pass_.setInputCloud (cloud_ptr);
     pass_.setFilterFieldName ("z");
@@ -188,12 +193,24 @@ int main (int argc, char** argv)
     pass_.setFilterLimits (x_filter_min_, x_filter_max_);
     pcl::PointCloud<Point>::Ptr cloud_filtered_ptr (new pcl::PointCloud<Point>);
     pass_.filter (*cloud_filtered_ptr);
-
+    
+    //**********code from the filtering tutorial***************************************
+//     pcl::PointCloud<Point>::Ptr cloud_filtered_ptr (new pcl::PointCloud<Point>);
+//     pcl::StatisticalOutlierRemoval<pcl::PointXYZRGB> sor;
+//     sor.setInputCloud (cloud_ptr);
+//     sor.setMeanK (50);
+//     sor.setStddevMulThresh (1.0);
+//     sor.filter (*cloud_filtered_ptr);
+    //**********************************************************************************
     ROS_INFO("Step 1 done");
     if (cloud_filtered_ptr->points.size() < (unsigned int)min_cluster_size_)
     {
         ROS_INFO("Filtered cloud only has %d points", (int)cloud_filtered_ptr->points.size());
     }
+    // save the filtered cloud to PCD file //****************************************
+    //pcl::PCDWriter writer;
+    writer.write<pcl::PointXYZRGB> ("cloud_filtered.pcd", *cloud_filtered_ptr, false);
+    //***********************************************************************************************
 
     pcl::PointCloud<Point>::Ptr cloud_downsampled_ptr (new pcl::PointCloud<Point>);
     grid_.setInputCloud (cloud_filtered_ptr);
@@ -202,7 +219,10 @@ int main (int argc, char** argv)
     {
         ROS_INFO("Downsampled cloud only has %d points", (int)cloud_downsampled_ptr->points.size());
     }
-
+    // save the downsampled cloud to PCD file //****************************************
+   // pcl::PCDWriter writer;
+    writer.write<pcl::PointXYZRGB> ("cloud_downsampled.pcd", *cloud_downsampled_ptr, false);
+    //***********************************************************************************************
     
     // Step 2 : Estimate normals
     pcl::PointCloud<pcl::Normal>::Ptr cloud_normals_ptr (new pcl::PointCloud<pcl::Normal>);
@@ -246,7 +266,10 @@ int main (int argc, char** argv)
     proj_.setModelCoefficients (table_coefficients_ptr);
     proj_.filter (*table_projected_ptr);
     ROS_INFO("Step 4 done");
-    
+        // save the projected inlier to PCD file //****************************************
+    //pcl::PCDWriter writer;
+    writer.write<pcl::PointXYZRGB> ("table_projected.pcd", *table_projected_ptr, false);
+    //***********************************************************************************************
     
     pcl::visualization::CloudViewer viewer ("viewer");
     viewer.showCloud (table_projected_ptr);
