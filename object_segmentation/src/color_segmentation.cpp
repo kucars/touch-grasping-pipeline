@@ -113,6 +113,7 @@ int main (int argc, char** argv)
 
   std::vector <pcl::PointIndices> clusters;
   reg.extract (clusters);
+  ROS_INFO ("Number of clusters found matching the given constraints: %d.", (int)clusters.size ());
 
   pcl::PointCloud <pcl::PointXYZRGB>::Ptr colored_cloud = reg.getColoredCloud ();
   pcl::visualization::CloudViewer viewer ("Cluster viewer");

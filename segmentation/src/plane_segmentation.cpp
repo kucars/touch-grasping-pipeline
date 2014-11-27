@@ -62,12 +62,12 @@ int main (int argc, char** argv)
   priv_nh_.param<std::string>("processing_frame", processing_frame_, "base_link");
   priv_nh_.param<double>("plane_detection_voxel_size", plane_detection_voxel_size_, 0.01);
   priv_nh_.param<double>("clustering_voxel_size", clustering_voxel_size_, 0.003);
-  priv_nh_.param<double>("z_filter_min", z_filter_min_, 0.4);
-  priv_nh_.param<double>("z_filter_max", z_filter_max_, 1.25);
-  priv_nh_.param<double>("y_filter_min", y_filter_min_, -1.0);
-  priv_nh_.param<double>("y_filter_max", y_filter_max_, 1.0);
-  priv_nh_.param<double>("x_filter_min", x_filter_min_, -1.0);
-  priv_nh_.param<double>("x_filter_max", x_filter_max_, 1.0);
+  priv_nh_.param<double>("z_filter_min", z_filter_min_, 0.0);
+  priv_nh_.param<double>("z_filter_max", z_filter_max_, 0.0);
+  priv_nh_.param<double>("y_filter_min", y_filter_min_, -0.5);
+  priv_nh_.param<double>("y_filter_max", y_filter_max_, 0.5);
+  priv_nh_.param<double>("x_filter_min", x_filter_min_, 0.0);
+  priv_nh_.param<double>("x_filter_max", x_filter_max_, 0.5);
   priv_nh_.param<double>("table_z_filter_min", table_z_filter_min_, 0.01);
   priv_nh_.param<double>("table_z_filter_max", table_z_filter_max_, 0.50);
   priv_nh_.param<double>("cluster_distance", cluster_distance_, 0.03);
@@ -132,7 +132,7 @@ int main (int argc, char** argv)
     grid_.setLeafSize (plane_detection_voxel_size_, plane_detection_voxel_size_, plane_detection_voxel_size_);
     grid_objects_.setLeafSize (clustering_voxel_size_, clustering_voxel_size_, clustering_voxel_size_);
     grid_.setFilterFieldName ("z");
-    grid_.setFilterLimits (z_filter_min_, z_filter_max_);
+    grid_.setFilterLimits (x_filter_min_,  x_filter_max_);
     grid_.setDownsampleAllData (false);
     grid_objects_.setDownsampleAllData (true);
     
@@ -176,31 +176,31 @@ int main (int argc, char** argv)
    writer.write<pcl::PointXYZRGB> ("input_cloud.pcd", *cloud_ptr, false);
     //***********************************************************************************************
     
-    pass_.setInputCloud (cloud_ptr);
-    pass_.setFilterFieldName ("z");
-    pass_.setFilterLimits (z_filter_min_, z_filter_max_);
-    pcl::PointCloud<Point>::Ptr z_cloud_filtered_ptr (new pcl::PointCloud<Point>);
-    pass_.filter (*z_cloud_filtered_ptr);
-
-    pass_.setInputCloud (z_cloud_filtered_ptr);
-    pass_.setFilterFieldName ("y");
-    pass_.setFilterLimits (y_filter_min_, y_filter_max_);
-    pcl::PointCloud<Point>::Ptr y_cloud_filtered_ptr (new pcl::PointCloud<Point>);
-    pass_.filter (*y_cloud_filtered_ptr);
-
-    pass_.setInputCloud (y_cloud_filtered_ptr);
-    pass_.setFilterFieldName ("x");
-    pass_.setFilterLimits (x_filter_min_, x_filter_max_);
-    pcl::PointCloud<Point>::Ptr cloud_filtered_ptr (new pcl::PointCloud<Point>);
-    pass_.filter (*cloud_filtered_ptr);
+//     pass_.setInputCloud (cloud_ptr);
+//     pass_.setFilterFieldName ("z");
+//     pass_.setFilterLimits (z_filter_min_, z_filter_max_);
+//     pcl::PointCloud<Point>::Ptr z_cloud_filtered_ptr (new pcl::PointCloud<Point>);
+//     pass_.filter (*z_cloud_filtered_ptr);
+// 
+//     pass_.setInputCloud (z_cloud_filtered_ptr);
+//     pass_.setFilterFieldName ("y");
+//     pass_.setFilterLimits (y_filter_min_, y_filter_max_);
+//     pcl::PointCloud<Point>::Ptr y_cloud_filtered_ptr (new pcl::PointCloud<Point>);
+//     pass_.filter (*y_cloud_filtered_ptr);
+// 
+//     pass_.setInputCloud (y_cloud_filtered_ptr);
+//     pass_.setFilterFieldName ("x");
+//     pass_.setFilterLimits (x_filter_min_, x_filter_max_);
+//     pcl::PointCloud<Point>::Ptr cloud_filtered_ptr (new pcl::PointCloud<Point>);
+//     pass_.filter (*cloud_filtered_ptr);
     
     //**********code from the filtering tutorial***************************************
-//     pcl::PointCloud<Point>::Ptr cloud_filtered_ptr (new pcl::PointCloud<Point>);
-//     pcl::StatisticalOutlierRemoval<pcl::PointXYZRGB> sor;
-//     sor.setInputCloud (cloud_ptr);
-//     sor.setMeanK (50);
-//     sor.setStddevMulThresh (1.0);
-//     sor.filter (*cloud_filtered_ptr);
+    pcl::PointCloud<Point>::Ptr cloud_filtered_ptr (new pcl::PointCloud<Point>);
+    pcl::StatisticalOutlierRemoval<pcl::PointXYZRGB> sor;
+    sor.setInputCloud (cloud_ptr);
+    sor.setMeanK (50);
+    sor.setStddevMulThresh (1.0);
+    sor.filter (*cloud_filtered_ptr);
     //**********************************************************************************
     ROS_INFO("Step 1 done");
     if (cloud_filtered_ptr->points.size() < (unsigned int)min_cluster_size_)
@@ -209,7 +209,7 @@ int main (int argc, char** argv)
     }
     // save the filtered cloud to PCD file //****************************************
     //pcl::PCDWriter writer;
-    writer.write<pcl::PointXYZRGB> ("cloud_filtered.pcd", *cloud_filtered_ptr, false);
+    writer.write<pcl::PointXYZRGB> ("cloud_filtered3.pcd", *cloud_filtered_ptr, false);
     //***********************************************************************************************
 
     pcl::PointCloud<Point>::Ptr cloud_downsampled_ptr (new pcl::PointCloud<Point>);
@@ -221,7 +221,7 @@ int main (int argc, char** argv)
     }
     // save the downsampled cloud to PCD file //****************************************
    // pcl::PCDWriter writer;
-    writer.write<pcl::PointXYZRGB> ("cloud_downsampled.pcd", *cloud_downsampled_ptr, false);
+    writer.write<pcl::PointXYZRGB> ("cloud_downsampled3.pcd", *cloud_downsampled_ptr, false);
     //***********************************************************************************************
     
     // Step 2 : Estimate normals
@@ -268,7 +268,7 @@ int main (int argc, char** argv)
     ROS_INFO("Step 4 done");
         // save the projected inlier to PCD file //****************************************
     //pcl::PCDWriter writer;
-    writer.write<pcl::PointXYZRGB> ("table_projected.pcd", *table_projected_ptr, false);
+    writer.write<pcl::PointXYZRGB> ("table_projected3.pcd", *table_projected_ptr, false);
     //***********************************************************************************************
     
     pcl::visualization::CloudViewer viewer ("viewer");

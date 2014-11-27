@@ -25,6 +25,12 @@ add_message_files(
    Table.msg
    TableRegion.msg
 )
+
+add_service_files(
+   DIRECTORY srv
+   FILES
+   TabletopSegmentation.srv
+)
 generate_messages(DEPENDENCIES sensor_msgs shape_msgs)
 catkin_package(CATKIN_DEPENDS 
     message_runtime
@@ -49,6 +55,7 @@ include_directories(
   ${Boost_INCLUDE_DIRS}
   ${Eigen_INCLUDE_DIRS}
   ${PCL_INCLUDE_DIRS}
+  ${CMAKE_CURRENT_LIST_DIR}/include/
 )
 
 
@@ -59,8 +66,12 @@ link_directories(
   ${PCL_LIBRARY_DIRS}
 )
 
+add_library(marker_generator src/marker_generator.cpp)
+
+add_executable(tabletop_segmentation_online_param_up src/tabletop_segmentation_online_param_up.cpp)
+add_dependencies(tabletop_segmentation_online_param_up ${PROJECT_NAME}_generate_messages_cpp)
+target_link_libraries(tabletop_segmentation_online_param_up marker_generator ${PCL_LIBRARIES} ${catkin_LIBRARIES})
+
 add_executable(plane_segmentation src/plane_segmentation.cpp)
 add_dependencies(plane_segmentation ${PROJECT_NAME}_generate_messages_cpp)
-target_link_libraries(plane_segmentation ${PCL_INCLUDE_DIRS}
-${catkin_LIBRARIES} ${PCL_LIBRARIES}
-)
+target_link_libraries(plane_segmentation ${PCL_INCLUDE_DIRS} ${catkin_LIBRARIES} ${PCL_LIBRARIES})

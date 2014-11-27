@@ -7,6 +7,6 @@
   
   <include file="$(find mitsubishi_arm_description)/launch/display.launch"/>
   <include file="$(find openni_launch)/launch/openni.launch"/>
-  <node name="color_segmentation" pkg="object_segmentation" type="color_segmentation">
+  <node name="color_segmentation" pkg="object_segmentation" type="color_segmentation" output="screen">
   </node>
 </launch>
