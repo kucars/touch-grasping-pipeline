@@ -1,0 +1,8 @@
+string id
+ist_msgs/Object object
+ist_msgs/GripState grip
+int8 action
+int8 REMOVE=-1
+int8 ATTACH=1
+---
+

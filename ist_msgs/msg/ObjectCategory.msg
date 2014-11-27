@@ -1,0 +1,15 @@
+int8 id
+int8 ANY_CATEGORY=0
+int8 CUP=1
+int8 GLASS=2
+int8 CAN=3
+int8 KNIFE=4
+int8 POT=5
+int8 PAN=6
+int8 BOWL=7
+int8 KITCHEN_TOOL=8
+int8 SCREWDRIVER=9
+int8 HAMMER=10
+int8 BOTTLE=11
+string name
+float64 likelihood

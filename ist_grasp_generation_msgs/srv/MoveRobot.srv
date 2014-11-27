@@ -1,0 +1,14 @@
+# Mode
+int8 mode
+int8 JOINTS=0
+int8 CARTESIAN=1
+
+# Gripper final pose
+sensor_msgs/JointState joint_state
+geometry_msgs/PoseStamped pose
+---
+int8 status
+int8 FAIL=-1
+int8 ANY=0
+int8 SUCCESS=1
+

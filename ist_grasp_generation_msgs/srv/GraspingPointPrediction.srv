@@ -1,0 +1,9 @@
+# Object
+ist_msgs/Object object
+
+# A list  grips
+ist_msgs/GripList grips
+---
+# A list of evaluated grips (success probability)
+ist_msgs/GripList evaluated_grips
+

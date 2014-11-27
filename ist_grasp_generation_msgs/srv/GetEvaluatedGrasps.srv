@@ -1,0 +1,8 @@
+# Generated grasps
+ist_msgs/GripList grip_list
+
+# Object characteristics
+ist_msgs/Object object
+---
+# Evaluated grasps
+ist_msgs/GripList grip_list

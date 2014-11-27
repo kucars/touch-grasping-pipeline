@@ -1,0 +1,8 @@
+int8 id
+int8 ANYTYPE=0
+int8 BUTTON=1
+int8 EXTREMITY=2
+int8 LOCK=3
+int8 KNOB=4
+int8 HANDLE=5
+int8 HOOK=6

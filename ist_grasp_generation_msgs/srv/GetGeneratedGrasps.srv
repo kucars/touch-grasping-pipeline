@@ -1,0 +1,5 @@
+# Ellipsoid
+ist_msgs/Object ellipsoid
+---
+# Grasps
+ist_msgs/GripState[] grasps

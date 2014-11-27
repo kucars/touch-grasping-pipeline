@@ -1,0 +1,1 @@
+sensor_msgs/PointCloud object_point_cloud

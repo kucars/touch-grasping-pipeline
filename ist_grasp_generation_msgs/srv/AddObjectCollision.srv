@@ -1,0 +1,8 @@
+int8 id
+ist_msgs/ObjectList object_list
+int8 action
+int8 REMOVE=-1
+int8 ADD=1
+segmentation/Table table
+---
+

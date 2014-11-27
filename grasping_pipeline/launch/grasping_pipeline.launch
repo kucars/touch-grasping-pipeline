@@ -1,0 +1,12 @@
+<launch>
+  <!-- Perception -->
+  <include file="$(find perception)/launch/perception.launch"/>
+
+  <!-- Grasp generation -->
+  <!-- include file="$(find ist_generate_grasps)/launch/generate_grasps_real.launch"/ -->
+
+  <!-- Grasp server -->
+  <node pkg="grasping_pipeline" name="grasping_pipeline_server" type="grasping_pipeline_server" respawn="true" output="screen"/>
+
+</launch>
+

@@ -1,0 +1,13 @@
+# Object (GOAL)
+ist_msgs/Object object
+---
+# List of Grasps (RESULTS)
+ist_msgs/GripList grip_list
+
+int32 status
+int32 SUCCESS=1
+int32 FAILED=-1
+---
+#feedback
+float64 progress
+

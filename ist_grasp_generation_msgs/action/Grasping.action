@@ -1,0 +1,16 @@
+# Detection region (GOAL)
+perception_msgs/TableRegion table_region
+---
+# List of Grasps (RESULTS)
+ist_msgs/GripList grip_list
+
+int32 status
+int32 SUCCESS=1
+int32 FAILED=-1
+---
+# The internal state that the generate grasps action currently is in (FEEDBACK)
+string state
+
+# Time to completion - this is a combination of requested planning time and trajectory completion time (FEEDBACK)
+#duration time_to_completion
+float64 progress

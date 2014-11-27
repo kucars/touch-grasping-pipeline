@@ -1,0 +1,3 @@
+ist_msgs/ObjectType object_type
+geometry_msgs/PoseStamped pose_stamped
+sensor_msgs/PointCloud object_point_cloud

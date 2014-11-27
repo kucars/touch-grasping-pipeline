@@ -1,0 +1,11 @@
+#End effector pose
+geometry_msgs/PoseStamped pose
+
+---
+#A boolean variable that indicates success or failure
+bool success
+
+
+
+
+

@@ -1,0 +1,5 @@
+---
+int8 status
+int8 NOT_GRASPING=-1
+int8 ANY_STATUS=0
+int8 GRASPING=1

@@ -1,0 +1,21 @@
+# Mode
+int8 mode
+int8 HOME=0
+int8 POSE=1
+int8 JOINTS=3
+int8 CARTESIAN=4
+
+#End effector pose
+geometry_msgs/PoseStamped pose
+
+# Objects parts (that we want to avoid) bounding boxes
+ist_msgs/BoundingBox[] bounding_boxes
+---
+#A boolean variable that indicates success or failure
+bool success
+
+#The resulting trajectory
+trajectory_msgs/JointTrajectory trajectory
+
+
+

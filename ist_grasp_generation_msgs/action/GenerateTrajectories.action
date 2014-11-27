@@ -1,0 +1,28 @@
+# Object (GOAL)
+# Object to grasp
+ist_msgs/Object object_to_grasp
+
+# List of Grasps
+ist_msgs/GripList grip_list
+
+# Collision objects (Arne planner needs this)
+ist_msgs/Object[] collision_objects
+---
+# List of Grasps with trajectories (RESULTS)
+ist_msgs/GripList grip_list
+
+int32 status
+int32 SUCCESS=1
+int32 FAILED=-1
+---
+# The internal state that the generate grasps action currently is in (FEEDBACK)
+string state
+
+int32 status
+int32 MOVING=2
+int32 STOPPED=1
+int32 FAILED=-1
+
+# Time to completion - this is a combination of requested planning time and trajectory completion time (FEEDBACK)
+#duration time_to_completion
+float64 progress

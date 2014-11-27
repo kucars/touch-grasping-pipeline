@@ -1,0 +1,4 @@
+geometry_msgs/Vector3 translation_axis
+geometry_msgs/Vector3 rotation_axis
+float64 translation_amplitude
+float64 rotation_amplitude
