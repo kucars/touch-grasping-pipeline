@@ -17,80 +17,80 @@ import time
 
 
 
-def readable_object_discrete_pose(discrete_pose):
-    if(discrete_pose==1):
-        return '  pose: vertical     id: ' + str(discrete_pose)
-    elif(discrete_pose==2):
-        return '  pose: horizontal   id: ' + str(discrete_pose) 
-    else:
-        return '  pose: any          id: ' + str(discrete_pose) 
+#def readable_object_discrete_pose(discrete_pose):
+    #if(discrete_pose==1):
+        #return '  pose: vertical     id: ' + str(discrete_pose)
+    #elif(discrete_pose==2):
+        #return '  pose: horizontal   id: ' + str(discrete_pose) 
+    #else:
+        #return '  pose: any          id: ' + str(discrete_pose) 
 
 
-def readable_object_part_task_info(object_task):
-    if(object_task.id==1):
-        return  'id: ' + str(object_task.id) + '  name: pour out                    ' + '  likelihood: ' + str(object_task.likelihood)
-    elif(object_task.id==2):
-        return  'id: ' + str(object_task.id) + '  name: pass                        ' + '  likelihood: ' + str(object_task.likelihood) 
-    elif(object_task.id==3):
-        return  'id: ' + str(object_task.id) + '  name: pour in                     ' + '  likelihood: ' + str(object_task.likelihood) 
-    elif(object_task.id==4):
-        return  'id: ' + str(object_task.id) + '  name: pick place inside upsidedown' + '  likelihood: ' + str(object_task.likelihood)
-    elif(object_task.id==5):
-        return  'id: ' + str(object_task.id) + '  name: pick place inside upright   ' + '  likelihood: ' + str(object_task.likelihood)
-    elif(object_task.id==6):
-        return  'id: ' + str(object_task.id) + '  name: pick place inside sideways  ' + '  likelihood: ' + str(object_task.likelihood)
-    elif(object_task.id==7):
-        return  'id: ' + str(object_task.id) + '  name: pick place on               ' + '  likelihood: ' + str(object_task.likelihood)
-    else:
-        return 'wrong id'
+#def readable_object_part_task_info(object_task):
+    #if(object_task.id==1):
+        #return  'id: ' + str(object_task.id) + '  name: pour out                    ' + '  likelihood: ' + str(object_task.likelihood)
+    #elif(object_task.id==2):
+        #return  'id: ' + str(object_task.id) + '  name: pass                        ' + '  likelihood: ' + str(object_task.likelihood) 
+    #elif(object_task.id==3):
+        #return  'id: ' + str(object_task.id) + '  name: pour in                     ' + '  likelihood: ' + str(object_task.likelihood) 
+    #elif(object_task.id==4):
+        #return  'id: ' + str(object_task.id) + '  name: pick place inside upsidedown' + '  likelihood: ' + str(object_task.likelihood)
+    #elif(object_task.id==5):
+        #return  'id: ' + str(object_task.id) + '  name: pick place inside upright   ' + '  likelihood: ' + str(object_task.likelihood)
+    #elif(object_task.id==6):
+        #return  'id: ' + str(object_task.id) + '  name: pick place inside sideways  ' + '  likelihood: ' + str(object_task.likelihood)
+    #elif(object_task.id==7):
+        #return  'id: ' + str(object_task.id) + '  name: pick place on               ' + '  likelihood: ' + str(object_task.likelihood)
+    #else:
+        #return 'wrong id'
 
-def readable_object_part_tasks_info(object_tasks):
-    temp='tasks: '
-    for task_list_index in range(0,len(object_tasks)):
-        temp=temp + '\n    ' + readable_object_part_task_info(object_tasks[task_list_index])
-    return temp
+#def readable_object_part_tasks_info(object_tasks):
+    #temp='tasks: '
+    #for task_list_index in range(0,len(object_tasks)):
+        #temp=temp + '\n    ' + readable_object_part_task_info(object_tasks[task_list_index])
+    #return temp
 
-def readable_object_part_info(object_part):
-    if(object_part.part.id==1):
-        return  'id: ' + str(object_part.part.id) + '  name: top' + '  confidence: ' +  str(object_part.part.confidence) + '\n   ' +  readable_object_part_tasks_info(object_part.tasks)
-    elif(object_part.part.id==2):
-        return  'id: ' + str(object_part.part.id) + '  name: middle' + '  confidence: ' +  str(object_part.part.confidence) + '\n   ' +  readable_object_part_tasks_info(object_part.tasks)
-    elif(object_part.part.id==3):
-        return  'id: ' + str(object_part.part.id) + '  name: bottom' + '  confidence: ' +  str(object_part.part.confidence) + '\n   ' +  readable_object_part_tasks_info(object_part.tasks)
-    elif(object_part.part.id==4):
-        return  'id: ' + str(object_part.part.id) + '  name: handle' + '  confidence: ' +  str(object_part.part.confidence) + '\n   ' +  readable_object_part_tasks_info(object_part.tasks)
-    elif(object_part.part.id==5):
-        return  'id: ' + str(object_part.part.id) + '  name: usable' + '  confidence: ' +  str(object_part.part.confidence) + '\n   ' +  readable_object_part_tasks_info(object_part.tasks)
-    else:
-        return  'id: ' + str(object_part.part.id) + '  name: any   ' + '  confidence: ' +  str(object_part.part.confidence) + '\n   ' +  readable_object_part_tasks_info(object_part.tasks)
+#def readable_object_part_info(object_part):
+    #if(object_part.part.id==1):
+        #return  'id: ' + str(object_part.part.id) + '  name: top' + '  confidence: ' +  str(object_part.part.confidence) + '\n   ' +  readable_object_part_tasks_info(object_part.tasks)
+    #elif(object_part.part.id==2):
+        #return  'id: ' + str(object_part.part.id) + '  name: middle' + '  confidence: ' +  str(object_part.part.confidence) + '\n   ' +  readable_object_part_tasks_info(object_part.tasks)
+    #elif(object_part.part.id==3):
+        #return  'id: ' + str(object_part.part.id) + '  name: bottom' + '  confidence: ' +  str(object_part.part.confidence) + '\n   ' +  readable_object_part_tasks_info(object_part.tasks)
+    #elif(object_part.part.id==4):
+        #return  'id: ' + str(object_part.part.id) + '  name: handle' + '  confidence: ' +  str(object_part.part.confidence) + '\n   ' +  readable_object_part_tasks_info(object_part.tasks)
+    #elif(object_part.part.id==5):
+        #return  'id: ' + str(object_part.part.id) + '  name: usable' + '  confidence: ' +  str(object_part.part.confidence) + '\n   ' +  readable_object_part_tasks_info(object_part.tasks)
+    #else:
+        #return  'id: ' + str(object_part.part.id) + '  name: any   ' + '  confidence: ' +  str(object_part.part.confidence) + '\n   ' +  readable_object_part_tasks_info(object_part.tasks)
 
-def readable_object_parts_info(object_parts):
-    temp='parts: '
-    for part_list_index in range(0,len(object_parts)):
-        temp=temp + '\n   ' + readable_object_part_info(object_parts[part_list_index])
-    return temp
+#def readable_object_parts_info(object_parts):
+    #temp='parts: '
+    #for part_list_index in range(0,len(object_parts)):
+        #temp=temp + '\n   ' + readable_object_part_info(object_parts[part_list_index])
+    #return temp
 
-def readable_object_category_info(object_category):
-    return  'id: ' + str(object_category.id) + '  name: ' + str(object_category.name) + '  likelihood: ' + str(object_category.likelihood)
-
-
-def readable_object_categories_info(object_categories):
-    temp='categories: '
-    for category_list_index in range(0,len(object_categories)):
-        temp=temp + '\n    ' + readable_object_category_info(object_categories[category_list_index])
-    return temp
-
-def readable_object_type_info(object_type):
-    return 'type:\n   id:  ' + str(object_type.id)  + '  type name: ' +  str(object_type.type_name) + '  is container: ' +  str(object_type.is_container)
+#def readable_object_category_info(object_category):
+    #return  'id: ' + str(object_category.id) + '  name: ' + str(object_category.name) + '  likelihood: ' + str(object_category.likelihood)
 
 
-def readable_object_info(id,object):
-    return 'object '+str(object.object_id+1)+': \n  '+readable_object_discrete_pose(object.state.discrete_pose)+ '\n  ' + readable_object_type_info(object.data.type) + '\n  ' + readable_object_categories_info(object.data.category_hypotheses) + '\n  ' + readable_object_parts_info(object.data.actionable_parts_data)
+#def readable_object_categories_info(object_categories):
+    #temp='categories: '
+    #for category_list_index in range(0,len(object_categories)):
+        #temp=temp + '\n    ' + readable_object_category_info(object_categories[category_list_index])
+    #return temp
 
-def print_objects_info(object_list):
+#def readable_object_type_info(object_type):
+    #return 'type:\n   id:  ' + str(object_type.id)  + '  type name: ' +  str(object_type.type_name) + '  is container: ' +  str(object_type.is_container)
 
-    for object_list_index in range(0,len(object_list.objects)):
-        print 'Object info: \n ' + readable_object_info(object_list_index,object_list.objects[object_list_index])
+
+#def readable_object_info(id,object):
+    #return 'object '+str(object.object_id+1)+': \n  '+readable_object_discrete_pose(object.state.discrete_pose)+ '\n  ' + readable_object_type_info(object.data.type) + '\n  ' + readable_object_categories_info(object.data.category_hypotheses) + '\n  ' + readable_object_parts_info(object.data.actionable_parts_data)
+
+#def print_objects_info(object_list):
+
+    #for object_list_index in range(0,len(object_list.objects)):
+        #print 'Object info: \n ' + readable_object_info(object_list_index,object_list.objects[object_list_index])
 
 
 	
@@ -167,24 +167,37 @@ class DetectObjectsAction(object):
         print "TabletopSegmentation Service call failed: %s"%e
         return False
 
-  def object_recognition_and_pose_estimation(self,segmentation_resp):
-    print 'waiting for object recognition and pose estimation service...'
-    rospy.wait_for_service('object_recognition_pose_estimation')
-    try:
-      obj_rec_pose_est = rospy.ServiceProxy('object_recognition_pose_estimation' , PoseEstimation)
-      myReq = PoseEstimationRequest()
-      myReq.table=segmentation_resp.table
-      myReq.cluster_list=segmentation_resp.clusters
-      resp = obj_rec_pose_est(myReq)
-      if len(resp.object_list.graspable_objects) == 0:
-        print 'No objects found'
-        return False
-      else:
-        #self._result.object_list=resp.object_list
-        return resp
-    except rospy.ServiceException, e:
-        print "Object recognition pose estimation Service call failed: %s"%e
-        return False
+    def clusterPointsPublishing(self,segmentation_resp):
+      print 'waiting for cluster points...'
+      rospy.wait_for_service('cluster_points')
+      try:
+	publish_points = rospy.ServiceProxy('cluster_points' , PoseEstimation)
+	myReq = PoseEstimationRequest()
+	myReq.table=segmentation_resp.table
+	myReq.cluster_list=segmentation_resp.clusters
+	resp = publish_points(myReq)
+	return resp
+      except rospy.ServiceException, e:
+	  print "cluster points Service call failed: %s"%e
+	  return False
+  #def object_recognition_and_pose_estimation(self,segmentation_resp):
+    #print 'waiting for object recognition and pose estimation service...'
+    #rospy.wait_for_service('object_recognition_pose_estimation')
+    #try:
+      #obj_rec_pose_est = rospy.ServiceProxy('object_recognition_pose_estimation' , PoseEstimation)
+      #myReq = PoseEstimationRequest()
+      #myReq.table=segmentation_resp.table
+      #myReq.cluster_list=segmentation_resp.clusters
+      #resp = obj_rec_pose_est(myReq)
+      #if len(resp.object_list.graspable_objects) == 0:
+        #print 'No objects found'
+        #return False
+      #else:
+        ##self._result.object_list=resp.object_list
+        #return resp
+    #except rospy.ServiceException, e:
+        #print "Object recognition pose estimation Service call failed: %s"%e
+        #return False
 
   #def object_details(self,object_list):    
     #print 'waiting for object details service...'
@@ -267,57 +280,57 @@ class DetectObjectsAction(object):
     #2. Object recognition and pose estimation
 
     #publish the feedback
-    self._feedback.state="Executing object recognition and pose estimation..." 
-    self._feedback.progress=51.0
-    self._as.publish_feedback(self._feedback)
+    #self._feedback.state="Executing cluster points publishing ..." 
+    #self._feedback.progress=51.0
+    #self._as.publish_feedback(self._feedback)
 
-    # Service call
-    object_recognition_and_pose_estimation_resp=self.object_recognition_and_pose_estimation(segmentation_resp)
-    if object_recognition_and_pose_estimation_resp==False:
-        self._as.set_aborted(self._result)
-        return False
+    ## Service call
+    #clusterPointsPublishing_resp=self.clusterPointsPublishing(segmentation_resp)
+    #if clusterPointsPublishing_resp==False:
+        #self._as.set_aborted(self._result)
+        #return False
 
-    object_list = object_recognition_and_pose_estimation_resp.object_list
+   ## object_list = object_recognition_and_pose_estimation_resp.object_list
 
-    # check that preempt has not been requested by the client
-    if self._as.is_preempt_requested():
-        rospy.loginfo('%s: Preempted' % self._action_name)
-        self._as.set_preempted()
-        return False
+    ## check that preempt has not been requested by the client
+    #if self._as.is_preempt_requested():
+        #rospy.loginfo('%s: Preempted' % self._action_name)
+        #self._as.set_preempted()
+        #return False
 
-    # publish the feedback
-    self._feedback.state="Done." 
-    self._feedback.progress=75.0
-    self._as.publish_feedback(self._feedback)
+    ## publish the feedback
+    #self._feedback.state="Done." 
+    #self._feedback.progress=100.0
+    #self._as.publish_feedback(self._feedback)
 
 
      # 3. Object details
 
-    # publish the feedback
-    self._feedback.state="Computing object details." 
-    self._feedback.progress=76.0
-    self._as.publish_feedback(self._feedback)
+    ## publish the feedback
+    #self._feedback.state="Computing object details." 
+    #self._feedback.progress=76.0
+    #self._as.publish_feedback(self._feedback)
    
-    # Service call
-    object_recognition_and_pose_estimation_resp=self.object_details(object_list)
-    if object_list==False:
-        #self._as.set_aborted(self._result)
-        return False
-    #print_objects_info(object_list)  
+    ## Service call
+    #object_recognition_and_pose_estimation_resp=self.object_details(object_list)
+    #if object_list==False:
+        ##self._as.set_aborted(self._result)
+        #return False
+    ##print_objects_info(object_list)  
      
-    # check that preempt has not been requested by the client
-    if self._as.is_preempt_requested():
-        rospy.loginfo('%s: Preempted' % self._action_name)
-        self._as.set_preempted()
-        return False
+    ## check that preempt has not been requested by the client
+    #if self._as.is_preempt_requested():
+        #rospy.loginfo('%s: Preempted' % self._action_name)
+        #self._as.set_preempted()
+        #return False
         
-    # publish the feedback
-    self._feedback.state="Done." 
-    self._feedback.progress=100.0
-    self._as.publish_feedback(self._feedback)
+    ## publish the feedback
+    #self._feedback.state="Done." 
+    #self._feedback.progress=100.0
+    #self._as.publish_feedback(self._feedback)
     
+   # return clusterPointsPublishing_resp
     return object_recognition_and_pose_estimation_resp
-    
 
   def request_base_link_to_table_tf(self):
     listener = tf.TransformListener()

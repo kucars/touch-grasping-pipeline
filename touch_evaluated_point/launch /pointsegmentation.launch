@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- arg name="model" default="$(find mitsubishi_arm_description)/robots/mitsubishi_rv_6sdl.urdf.xacro"/>
+  <arg name="gui" default="False" />
+  <param name="/mitsubishi_arm/robot_description" command="$(find xacro)/xacro.py $(arg model)" />
+  <param name="/mitsubishi_arm/mitsubishi_port" value="/dev/ttyUSB0" / -->
+  
+  <include file="$(find mitsubishi_barrett_description)/launch/display.launch"/>
+  <include file="$(find openni_launch)/launch/openni.launch"/>
+  <node name="segmentation" pkg="touch_evaluated_point" type="point" output="screen">
+  </node>
+</launch>

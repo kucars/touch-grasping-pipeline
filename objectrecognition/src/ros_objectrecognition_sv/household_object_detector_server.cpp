@@ -1,6 +1,6 @@
 #include "ros/ros.h"
 #include <ros_objectrecognition/object_recognition_ros.h>
-#include <tabletop_object_segmentation_online/TabletopSegmentation.h>
+#include <segmentation/TabletopSegmentation.h>
 //#include <pcl/ros/conversions.h>
 #include <sensor_msgs/point_cloud_conversion.h>
 #include <pcl_ros/point_cloud.h>
