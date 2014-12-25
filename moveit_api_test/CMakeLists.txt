@@ -44,3 +44,6 @@ target_link_libraries(api_moveit_test ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 add_executable(mitsubishi_barrett_moveit src/mitsubishi_barrett_moveit.cpp)
 target_link_libraries(mitsubishi_barrett_moveit ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 
+add_executable(barrett_mitsubishi_moveit src/barrett_mitsubishi_moveit.cpp)
+target_link_libraries(barrett_mitsubishi_moveit ${catkin_LIBRARIES} ${PCL_LIBRARIES})
+

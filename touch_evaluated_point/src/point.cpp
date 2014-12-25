@@ -656,6 +656,9 @@ int main (int argc, char** argv)
         //        q.normalize();
         //        tf::quaternionTFToMsg(q, msg);
 
+
+
+
         // normals orientation
         Eigen::Vector3d axis_vector;
         geometry_msgs::Pose output_vector;
@@ -679,9 +682,9 @@ int main (int argc, char** argv)
         q.normalize();
         pose = q * Eigen::AngleAxisd(-0.5*M_PI, Eigen::Vector3d::UnitY());
         Eigen::Vector3d a;
-        a[0]=cloud_cluster->points[index].x;
-        a[1]=cloud_cluster->points[index].y;
-        a[2]=cloud_cluster->points[index].z;
+        a[0]= cloud_cluster->points[index].x;//cloud_cluster->points[index].x;
+        a[1]= cloud_cluster->points[index].y;//cloud_cluster->points[index].y;
+        a[2]= cloud_cluster->points[index].z;//cloud_cluster->points[index].z;
         pose.translation() = a;
         tf::poseEigenToMsg(pose, output_vector);
 
@@ -714,7 +717,47 @@ int main (int argc, char** argv)
         marker.header.stamp = ros::Time::now();
         marker.lifetime = ros::Duration(5);
         // Publish the marker
-        marker_pub.publish(marker);
+//        marker_pub.publish(marker);
+
+        //normal second point visualization ************************
+
+        // point along the normal
+        pcl::PointXYZ normal_point;
+
+        normal_point.x = (cloud_normals->points[index].normal_x)/-15 + (cloud_cluster->points[index].x);
+        normal_point.y = (cloud_normals->points[index].normal_y)/-15 + (cloud_cluster->points[index].y);
+        normal_point.z = (cloud_normals->points[index].normal_z)/-15 + (cloud_cluster->points[index].z);
+
+        visualization_msgs::Marker pointmarker;
+        pointmarker.type = shape;
+        pointmarker.action = visualization_msgs::Marker::ADD;
+
+        pointmarker.scale.x = 0.2*(h[index]/3);
+        pointmarker.scale.y = 0.01;
+        pointmarker.scale.z = 0.01;
+        // Set the color -- be sure to set alpha to something non-zero!
+        pointmarker.color.r = 1.0f;
+        pointmarker.color.g = 0.0f;
+        pointmarker.color.b = 0.0f;
+        pointmarker.color.a = 1.0;
+        pointmarker.ns = "basic_shapes4";
+        pointmarker.id = 5;
+        fixedPose.position.x = normal_point.x;
+        fixedPose.position.y = normal_point.y;
+        fixedPose.position.z = normal_point.z;
+        ROS_INFO("Publishing Marker point");
+        std::cout << "Point x " <<normal_point.x<<std::endl;
+        std::cout << "Point y " <<normal_point.y<<std::endl;
+        std::cout << "Point z " <<normal_point.z<<std::endl;
+        pointmarker.pose =  fixedPose;
+        pointmarker.pose.orientation =  output_vector.orientation;
+        pointmarker.header.frame_id = "base_link";
+        pointmarker.header.stamp = ros::Time::now();
+        pointmarker.lifetime = ros::Duration();
+        marker_pub.publish(pointmarker);
+        //**********************************************************
+
+
 
         //table orientation
         axis_vector[0] = plane_normal.normal_x;

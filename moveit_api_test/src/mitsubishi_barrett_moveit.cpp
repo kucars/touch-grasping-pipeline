@@ -22,9 +22,10 @@ void pointCallback(const visualization_msgs::Marker::ConstPtr& point)
     moveit::planning_interface::MoveGroup::Plan plan;
     fixedPose.position = point->pose.position;
     fixedPose.orientation = point->pose.orientation;
-    //group3.setPoseTarget(fixedPose);
-    group3.setApproximateJointValueTarget(fixedPose);
+    group3.setPoseTarget(fixedPose);
+    //group3.setApproximateJointValueTarget(fixedPose);
     //group3.setJointValueTarget(fixedPose);
+
 
     bool success = group3.plan(plan);
     if(success)
