@@ -669,7 +669,7 @@ int main (int argc, char** argv)
         axis_vector.normalize();
 
         //        Eigen::Vector3d up_vector(0.0, 0.0, -1.0);
-        Eigen::Vector3d up_vector(0.0, 0.0, 1.0);
+        Eigen::Vector3d up_vector(0.0, 0.0, -1.0);//changes the orientation of the normal
         Eigen::Vector3d right_axis_vector = axis_vector.cross(up_vector);
         right_axis_vector.normalized();
         double theta = axis_vector.dot(up_vector);
@@ -713,11 +713,18 @@ int main (int argc, char** argv)
         // Set the frame ID and timestamp. See the TF tutorials for information on these.
         marker.pose =  output_vector;//fixedPose;
         marker.pose.orientation  = output_vector.orientation;
+        std::cout << " normal position x " <<output_vector.position.x<<std::endl;
+        std::cout << " normal position y " <<output_vector.position.y<<std::endl;
+        std::cout << " normal position z " <<output_vector.position.z<<std::endl;
+        std::cout << " normal orientation x " <<output_vector.orientation.x<<std::endl;
+        std::cout << " normal orientation y " <<output_vector.orientation.y<<std::endl;
+        std::cout << " normal orientation z " <<output_vector.orientation.z<<std::endl;
+        std::cout << " normal orientation w " <<output_vector.orientation.z<<std::endl;
         marker.header.frame_id = "base_link";
         marker.header.stamp = ros::Time::now();
         marker.lifetime = ros::Duration(5);
         // Publish the marker
-//        marker_pub.publish(marker);
+        marker_pub.publish(marker);
 
         //normal second point visualization ************************
 
@@ -746,15 +753,15 @@ int main (int argc, char** argv)
         fixedPose.position.y = normal_point.y;
         fixedPose.position.z = normal_point.z;
         ROS_INFO("Publishing Marker point");
-        std::cout << "Point x " <<normal_point.x<<std::endl;
-        std::cout << "Point y " <<normal_point.y<<std::endl;
-        std::cout << "Point z " <<normal_point.z<<std::endl;
+        std::cout << "projected Point along normal x " <<normal_point.x<<std::endl;
+        std::cout << "projected Point along normal y " <<normal_point.y<<std::endl;
+        std::cout << "projected Point along normal z " <<normal_point.z<<std::endl;
         pointmarker.pose =  fixedPose;
         pointmarker.pose.orientation =  output_vector.orientation;
         pointmarker.header.frame_id = "base_link";
         pointmarker.header.stamp = ros::Time::now();
         pointmarker.lifetime = ros::Duration();
-        marker_pub.publish(pointmarker);
+//        marker_pub.publish(pointmarker);
         //**********************************************************
 
 

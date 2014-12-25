@@ -1,3 +1,5 @@
+// code for the mitsubishi_barrett three chains "chain1" "chain2" "chain3" "arm"
+
 #include <moveit/move_group_interface/move_group.h>
 #include <moveit/robot_model_loader/robot_model_loader.h>
 #include <moveit/planning_interface/planning_interface.h>
@@ -22,6 +24,16 @@ void pointCallback(const visualization_msgs::Marker::ConstPtr& point)
     moveit::planning_interface::MoveGroup::Plan plan;
     fixedPose.position = point->pose.position;
     fixedPose.orientation = point->pose.orientation;
+
+    // fixed touch position for chain 3
+    //    fixedPose.position.x = 0.61685;
+    //    fixedPose.position.y = 0.0;
+    //    fixedPose.position.z = 0.14865;
+    //    fixedPose.orientation.x = -0.5665;
+    //    fixedPose.orientation.y = -0.42316;
+    //    fixedPose.orientation.z = -0.42317;
+    //    fixedPose.orientation.w = 0.56652;
+
     group3.setPoseTarget(fixedPose);
     //group3.setApproximateJointValueTarget(fixedPose);
     //group3.setJointValueTarget(fixedPose);
@@ -112,16 +124,56 @@ int main(int argc, char **argv)
     robot_state = planning_scene->getCurrentStateNonConst();
     planning_scene->setCurrentState(*group1.getCurrentState());
 
-    ros::Subscriber pointsub = n.subscribe<visualization_msgs::Marker>("visualization_marker", 10, pointCallback);
+    //    ros::Subscriber pointsub = n.subscribe<visualization_msgs::Marker>("visualization_marker", 10, pointCallback);
 
-    while(ros::ok())
+    //    while(ros::ok())
+    //    {
+
+    //        if(readpose==1)
+    //            ros::waitForShutdown();
+
+    //        ros::spinOnce();
+    //    }
+
+
+    //testing the chain3 arm+finger3 fixed known position *************************
+    move_group_interface::MoveGroup group3("chain3");
+    group3.setPoseReferenceFrame("base_link");
+    group3.setEndEffectorLink("finger_3_dist_link");
+    ROS_INFO("Reference frame 3: %s", group3.getPlanningFrame().c_str());
+    ROS_INFO("Reference end effector 3: %s", group3.getEndEffectorLink().c_str());
+    group3.setPlanningTime(30.0);
+    group3.setWorkspace(-3.0,-3.0,-3.0,3.0,3.0,3.0);
+
+    geometry_msgs::Pose fixedPose;
+    moveit::planning_interface::MoveGroup::Plan plan;
+
+    fixedPose.position.x = 0.70685;
+    fixedPose.position.y = 0.0;
+    fixedPose.position.z = 0.14865;
+    fixedPose.orientation.x = -0.5665;
+    fixedPose.orientation.y = -0.42316;
+    fixedPose.orientation.z = -0.42317;
+    fixedPose.orientation.w = 0.56652;
+
+    group3.setPoseTarget(fixedPose);
+    //group3.setApproximateJointValueTarget(fixedPose);
+    //group3.setJointValueTarget(fixedPose);
+
+
+    bool success = group3.plan(plan);
+    if(success)
     {
-
-        if(readpose==1)
-            ros::waitForShutdown();
-
-        ros::spinOnce();
+        ROS_INFO("Moving to my Destination");
+        group3.move();
+        ROS_INFO("Finished Moving");
     }
+    else
+        ROS_INFO("Failure. No movement");
+    sleep(1);
+
+    ros::waitForShutdown();
+
 
 }
 

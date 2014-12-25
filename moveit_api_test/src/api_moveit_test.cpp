@@ -1,3 +1,4 @@
+// code for the barrett three chains only
 
 #include <moveit/move_group_interface/move_group.h>
 #include <moveit/robot_model_loader/robot_model_loader.h>
@@ -15,9 +16,9 @@ int main(int argc, char **argv)
     ros::AsyncSpinner spinner(1);
     spinner.start();
     // this connecs to a running instance of the move_group node
-    move_group_interface::MoveGroup group("main");
+    move_group_interface::MoveGroup group("arm1");
     group.setPoseReferenceFrame("base_link");
-    group.setEndEffectorLink("end_effector");
+    group.setEndEffectorLink("finger_1_dist_link");
     geometry_msgs::Pose fixedPose;
 
     ROS_INFO("loading the model");
@@ -78,7 +79,7 @@ int main(int argc, char **argv)
 //    joint_values=group.getCurrentJointValues();
 //    moveit::core::RobotStatePtr kinematic_state(new robot_state::RobotState(robot_model));
 //    kinematic_state->setToDefaultValues();
-    const robot_state::JointModelGroup* joint_model_group = robot_state.getJointModelGroup("main");
+    const robot_state::JointModelGroup* joint_model_group = robot_state.getJointModelGroup("finger_1");
 
 //    robot_state.setJointGroupPositions(joint_model_group, response.trajectory.joint_trajectory.points.back().positions);
 
@@ -108,16 +109,15 @@ int main(int argc, char **argv)
 
     // Now, setup a joint space goal
     robot_state::RobotState goal_state(robot_model);
-    std::vector<double> joint_values(9, 0.0);
+    std::vector<double> joint_values(3, 0.0);
     joint_values[0] = 0.0;
-    joint_values[1] = 0.5;
-    joint_values[2] = 0.0;
-    joint_values[3] = 0.0;
-    joint_values[4] = 0.0;
-    joint_values[5] = 0.0;
-//    joint_values[6] = 0.0;
-//    joint_values[7] = 2.4;
-//    joint_values[8] = 2.4;
+    joint_values[1] = 2.4;
+    joint_values[2] = 2.4;
+//    joint_values[3] = 1.04;
+//    joint_values[4] = 1.0;
+//    joint_values[5] = 0.7;
+//    joint_values[6] = 0.7;
+//    joint_values[7] = 0.7;
     goal_state.setJointGroupPositions(joint_model_group, joint_values);
     moveit_msgs::Constraints joint_goal = kinematic_constraints::constructGoalConstraints(goal_state, joint_model_group);
     group.setJointValueTarget(goal_state);
@@ -125,13 +125,13 @@ int main(int argc, char **argv)
 
     sleep(3);
 
-    move_group_interface::MoveGroup group1("finger2");
+    move_group_interface::MoveGroup group1("finger_2");
     group1.setPoseReferenceFrame("barrett_base_link");
     group1.setEndEffectorLink("finger_2_dist_link");
-    joint_values[6] = 0.0;
-    joint_values[7] = 2.4;
-    joint_values[8] = 2.4;
-    joint_model_group = robot_state.getJointModelGroup("finger2");
+    joint_values[0] = 0.0;
+    joint_values[1] = 2.4;
+    joint_values[2] = 2.4;
+    joint_model_group = robot_state.getJointModelGroup("finger_2");
     goal_state.setJointGroupPositions(joint_model_group, joint_values);
 //    moveit_msgs::Constraints joint_goal = kinematic_constraints::constructGoalConstraints(goal_state, joint_model_group);
     group1.setJointValueTarget(goal_state);
@@ -139,13 +139,13 @@ int main(int argc, char **argv)
 
     sleep(3);
 
-    move_group_interface::MoveGroup group2("finger3");
+    move_group_interface::MoveGroup group2("finger_3");
     group2.setPoseReferenceFrame("barrett_base_link");
     group2.setEndEffectorLink("finger_3_dist_link");
-    joint_values[6] = 0.85;
-    joint_values[7] = 0.85;
-    joint_values[8] = 0.85;
-    joint_model_group = robot_state.getJointModelGroup("finger3");
+    joint_values[0] = 0.85;
+    joint_values[1] = 0.85;
+    joint_values[2] = 0.85;
+    joint_model_group = robot_state.getJointModelGroup("finger_3");
     goal_state.setJointGroupPositions(joint_model_group, joint_values);
 //    moveit_msgs::Constraints joint_goal = kinematic_constraints::constructGoalConstraints(goal_state, joint_model_group);
     group2.setJointValueTarget(goal_state);

@@ -1,4 +1,4 @@
-
+// code just for testing random joints and chains
 #include <moveit/move_group_interface/move_group.h>
 #include <moveit/robot_model_loader/robot_model_loader.h>
 #include <moveit/planning_interface/planning_interface.h>

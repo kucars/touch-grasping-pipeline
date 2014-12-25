@@ -1,3 +1,5 @@
+// code for the mitsubishi_barrett different chains "main" "finger1" "finger2" finger3" "arm1" "arm2" "arm3" "arm"
+
 #include <ros/ros.h>
 #include <iostream>
 #include <moveit/move_group_interface/move_group.h>
@@ -85,7 +87,7 @@ void pointCallback(const visualization_msgs::Marker::ConstPtr& point)
     if(success)
     {
         ROS_INFO("Moving to my Destination");
-                group3.move();
+//                group3.move();
         ROS_INFO("Finished Moving");
     }
     else
